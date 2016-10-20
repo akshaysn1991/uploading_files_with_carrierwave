@@ -1,0 +1,17 @@
+defaults: &defaults
+data_types: ['User', 'Permission', 'Package', 'PackagePermission', 'UserPermission', 'SiteLicense', 'SiteLicenseCode', 'SiteLicencePackage']
+
+production:
+    api_url: http://sample_url/api
+    api_key: aaaaaaa
+    secret_key: aaaaaaa
+
+development:
+    api_url: http://localhost:3000/api
+    api_key: aaaaaaa
+    secret_key: aaaaaa
+
+test:
+    api_url: http://localhost:3000/api
+    api_key: aaaaaaa
+    secret_key: aaaaaaa

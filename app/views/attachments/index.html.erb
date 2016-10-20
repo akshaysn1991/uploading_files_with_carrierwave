@@ -1,0 +1,32 @@
+<% if !flash[:notice].blank? %>
+  <div class="alert alert-info">
+  <%= flash[:notice] %>
+  </div>
+<% end %>
+
+<br />
+<%= link_to "Upload New File", new_attachment_path, class: "btn btn-primary" %>
+<br />
+<br />
+<table id="data" class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>File name</th>
+      <th>Data type</th>     
+      <th>File Location</th>
+      <th>Content type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @attachments.each do |attachment| %>
+      <tr>
+        <td><%= attachment.original_filename %></td> 
+         <td><%= attachment.data_type %></td> 
+         <td><%= attachment.location %></td> 
+         <td><%= attachment.content_type %></td> 
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+

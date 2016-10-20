@@ -1,0 +1,11 @@
+
+
+
+<% if @document.persisted? %>
+    $('#index_data_div').html("<%= escape_javascript(render 'index_data') %>");
+    // $('.something').text(<%= flash[:notice] %> )
+    alert('hhhhhhhhhhhh');
+<% else %>
+    $('#my_form_div').html("<%= escape_javascript(render 'form') %>");
+
+<% end %>

@@ -1,0 +1,41 @@
+
+
+
+
+<div class="well">
+
+  <% if !flash[:notice].blank? %>
+  <div class="alert alert-info">
+  <%= flash[:notice] %>
+  </div>
+<% end %>
+
+<div class="something"></div>
+
+<% if !@document.errors.empty? %>
+  <div class="alert alert-error">
+    <ul>
+      <% @document.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+   <%#= AppConfig.data_types %>
+
+  <%#= form_for @document, html: { multipart: true } do |f| %>
+
+    <%#= form_for(:document, :url => {:controller => "documents", :action => "create", :format => "js"}, :html => {:class => "form-horizontal"}, :remote => true) do |f| %>
+
+    <%= form_for(@document, :remote => true, :html => {multipart: true  }) do |f| %>
+<%#= form_for @document, :remote => true, :html => {multipart: true  } do |f| %>
+
+  <%= select_tag "data_type", options_for_select(AppConfig.data_types) %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <%#= f.label :attachment %>
+    <%= f.file_field :attachment %>
+    <%= f.submit "Save", class: "btn btn-primary" %>
+  <% end %>
+</div>

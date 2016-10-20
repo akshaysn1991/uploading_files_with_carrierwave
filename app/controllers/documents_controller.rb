@@ -1,6 +1,8 @@
 class DocumentsController < ApplicationController
+  protect_from_forgery
   def index
     @documents = Document.all
+    @document = Document.new
   end
 
   def new
@@ -8,14 +10,32 @@ class DocumentsController < ApplicationController
   end
 
   def create
-  	# byebug
-    @document = Document.new(document_params)
+  	  # byebug
+       
+      @document = Document.new(document_params)
+     # @document.save
+      
 
-    if @document.save
-      redirect_to documents_path, notice: "The document #{@document.name} has been uploaded."
-    else
-      render "new"
-    end
+      respond_to do |format|
+      if @document.save
+         flash[:notice] = "Comment successfully created"
+        format.html { redirect_to documents_path, notice: 'File was successfully created.' }
+        format.js   { flash.now[:notice] = "Here is my flash notice" }
+        format.json { render :show, status: :created, location: @comment }
+      else
+        format.html { render :new }
+        format.json { render json: @document.errors, status: :unprocessable_entity }
+        format.js   { }
+      end
+
+
+end
+      
+    # if @document.save
+    #   redirect_to documents_path, notice: "The document #{@document.name} has been uploaded."
+    # else
+    #   render "new"
+    # end
   end
 
   def destroy
@@ -26,6 +46,8 @@ class DocumentsController < ApplicationController
 
 private
   def document_params
-    params.require(:document).permit(:name, :attachment)
+
+     params.fetch(:document, {}).permit(:attachment, :name)
+    # params.require(:document).permit(:name, :attachment)
   end
 end
